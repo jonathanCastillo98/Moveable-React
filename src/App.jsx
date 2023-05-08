@@ -52,6 +52,8 @@ const App = () => {
       the rotation I need to manipulate a little it the strings to get exactly the numbers, this is interesting
       because transform gives me two values if I move the position the string changes, so that's why I needed to make
       some logic to fix that.
+
+      ¡¡¡¡There are some things missing to get it perfect!!!! But it is just the idea
   */
   const handleOnRotate = ({ target, transform }) => {
     target.style.transform = transform;
@@ -59,16 +61,23 @@ const App = () => {
     if (transform[0] !== "t") {
       const rotationString = transform.substring(8, 24).padEnd(17, "0");
       rotationDeg = Number.parseFloat(rotationString);
+      console.log("sin mover", rotationDeg);
     } else {
       const rotationString = transform.substring(39, 55).padEnd(17, "0");
       if (typeof rotationString[0] != "number") {
-        const onlyNumbers = rotationString.replace(/[^0-9]+/g, "");
+        const onlyNumbers = rotationString.replace(/[^0-9_-]+/g, "");
         const splitted = onlyNumbers.split("");
-        splitted.splice(2, 0, ".");
+        if (splitted[0] == "-") {
+          splitted.splice(3, 0, ".");
+        } else {
+          splitted.splice(2, 0, ".");
+        }
         const joined = splitted.join("");
         rotationDeg = Number.parseFloat(joined);
+        console.log("no empieza con numero", rotationDeg);
       } else {
         rotationDeg = Number.parseFloat(rotationString);
+        console.log("empieza con numero", rotationDeg);
       }
     }
     setRotate(rotationDeg);

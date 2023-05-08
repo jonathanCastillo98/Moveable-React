@@ -1,0 +1,4 @@
+.target {
+    cursor: grab;
+    z-index: 1000;
+}
